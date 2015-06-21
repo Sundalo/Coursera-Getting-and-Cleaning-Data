@@ -7,30 +7,30 @@ rm(list=ls())
 setwd('/Users/Matthew/Documents/UCI HAR Dataset/');
 
 # Read in the data from files
-features     = read.table('./features.txt',header=FALSE); #imports features.txt
+features = read.table('./features.txt',header=FALSE); #imports features.txt
 activityType = read.table('./activity_labels.txt',header=FALSE); #imports activity_labels.txt
 subjectTrain = read.table('./train/subject_train.txt',header=FALSE); #imports subject_train.txt
-xTrain       = read.table('./train/x_train.txt',header=FALSE); #imports x_train.txt
-yTrain       = read.table('./train/y_train.txt',header=FALSE); #imports y_train.txt
+xTrain = read.table('./train/x_train.txt',header=FALSE); #imports x_train.txt
+yTrain = read.table('./train/y_train.txt',header=FALSE); #imports y_train.txt
 
 # Assign column names to the data imported above
-colnames(activityType)  = c('activityId','activityType');
-colnames(subjectTrain)  = "subjectId";
-colnames(xTrain)        = features[,2]; 
-colnames(yTrain)        = "activityId";
+colnames(activityType) = c('activityId','activityType');
+colnames(subjectTrain) = "subjectId";
+colnames(xTrain) = features[,2]; 
+colnames(yTrain) = "activityId";
 
 # cCreate the final training set by merging yTrain, subjectTrain, and xTrain
 trainingData = cbind(yTrain,subjectTrain,xTrain);
 
 # Read in the test data
 subjectTest = read.table('./test/subject_test.txt',header=FALSE); #imports subject_test.txt
-xTest       = read.table('./test/x_test.txt',header=FALSE); #imports x_test.txt
-yTest       = read.table('./test/y_test.txt',header=FALSE); #imports y_test.txt
+xTest = read.table('./test/x_test.txt',header=FALSE); #imports x_test.txt
+yTest = read.table('./test/y_test.txt',header=FALSE); #imports y_test.txt
 
 # Assign column names to the test data imported above
 colnames(subjectTest) = "subjectId";
-colnames(xTest)       = features[,2]; 
-colnames(yTest)       = "activityId";
+colnames(xTest) = features[,2]; 
+colnames(yTest) = "activityId";
 
 
 # Create the final test set by merging the xTest, yTest and subjectTest data
@@ -85,13 +85,13 @@ colnames(finalData) = colNames;
 # 5. Create a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
 # Create a new table, finalDataNoActivityType without the activityType column
-finalDataNoActivityType  = finalData[,names(finalData) != 'activityType'];
+finalDataNoActivityType = finalData[,names(finalData) != 'activityType'];
 
 # Summarizing the finalDataNoActivityType table to include just the mean of each variable for each activity and each subject
-tidyData    = aggregate(finalDataNoActivityType[,names(finalDataNoActivityType) != c('activityId','subjectId')],by=list(activityId=finalDataNoActivityType$activityId,subjectId = finalDataNoActivityType$subjectId),mean);
+tidyData = aggregate(finalDataNoActivityType[,names(finalDataNoActivityType) != c('activityId','subjectId')],by=list(activityId=finalDataNoActivityType$activityId,subjectId = finalDataNoActivityType$subjectId),mean);
 
 # Merging the tidyData with activityType to include descriptive acitvity names
-tidyData    = merge(tidyData,activityType,by='activityId',all.x=TRUE);
+tidyData = merge(tidyData,activityType,by='activityId',all.x=TRUE);
 
 # Export the tidyData set 
 write.table(tidyData, './tidyData.txt',row.names=TRUE,sep='\t');
