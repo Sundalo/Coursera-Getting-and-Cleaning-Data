@@ -10,7 +10,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 #Section 1. Merging the training and the test sets to create one data set.#
 
-After setting the source directory for the files, read into tables the data located in
+After creating the appropriate source directory for the files,  the next step is to read the following into tables:
 
 features.txt
 activity_labels.txt
@@ -24,13 +24,13 @@ Assign column names and merge to create one data set.
 
 #Section 2. Extract only the measurements on the mean and standard deviation for each measurement.#
 
-Create a logcal vector that contains TRUE values for the ID, mean and stdev columns and FALSE values for the others. Subset this data to keep only the necessary columns.
+Create a logcal vector that contains TRUE values for the ID and mean, stdev columns, and FALSE values for the others. Subset this data to keep only the necessary/required columns.
 
-#Section 3. Use descriptive activity names to name the activities in the data set#
+#Section 3. Use descriptions for the  activity names to name the activities in the data set#
 
 Merge data subset with the activityType table to cinlude the descriptive activity names
 
-#Section 4. Appropriately label the data set with descriptive activity names.#
+#Section 4. Properly classify the data set with descriptive activity names.#
 
 Use gsub function for pattern replacement to clean up the data labels.
 
