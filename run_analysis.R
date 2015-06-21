@@ -1,3 +1,6 @@
+# Clean up workspace
+rm(list=ls())
+
 # 1. Merge the training and the test sets to create one data set.
 
 #set working directory to the location where the UCI HAR Dataset was unzipped
@@ -29,8 +32,10 @@ colnames(subjectTest) = "subjectId";
 colnames(xTest) = features[,2]; 
 colnames(yTest) = "activityId";
 
+
 # Create the final test set by merging the xTest, yTest and subjectTest data
 testData = cbind(yTest,subjectTest,xTest);
+
 
 # Combine training and test data to create a final data set
 finalData = rbind(trainingData,testData);
